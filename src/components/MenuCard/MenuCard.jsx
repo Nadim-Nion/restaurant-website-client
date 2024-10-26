@@ -1,15 +1,15 @@
 import React from 'react';
 
 const MenuCard = ({ menu }) => {
-    const { name, price, description, quantity } = menu;
+    const { name, price, description, image } = menu;
 
     return (
         <div className='flex justify-center items-center'>
             <div className="card bg-base-100 w-96 shadow-xl">
                 <figure>
                     <img
-                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                        alt="Shoes" />
+                        src={image}
+                        alt="Menu Items" />
                 </figure>
                 <div className="card-body">
                     <div className='mb-5'>
