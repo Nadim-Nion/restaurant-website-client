@@ -16,7 +16,7 @@ const Menu = () => {
     });
 
     return (
-        <div className='my-10 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4'>
+        <div className='my-10 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4 px-4 md:px-8 lg:px-16'>
             {
                 menuItems.map(menu => <MenuCard
                     key={menu.id}

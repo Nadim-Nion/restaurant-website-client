@@ -15,7 +15,7 @@ const queryClient = new QueryClient()
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <div className='max-w-screen-xl mx-auto'>
+      <div className='max-w-screen-lg mx-auto'>
         <RouterProvider router={router} />
       </div>
     </QueryClientProvider>
