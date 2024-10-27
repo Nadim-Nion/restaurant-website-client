@@ -1,13 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import React from 'react';
 import MenuCard from '../MenuCard/MenuCard';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const Menu = () => {
+
+    const axiosPublic = useAxiosPublic();
+
     const { data: menuItems = [] } = useQuery({
         queryKey: ['menuItems'],
         queryFn: async () => {
-            const res = await axios.get('restaurant.json');
+            const res = await axiosPublic.get('/menuItems');
             return res.data;
         }
     });
