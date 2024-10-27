@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
 import CartDrawer from '../CartDrawer/CartDrawer';
+import useCart from '../../hooks/useCart';
 
 const MenuCard = ({ menu }) => {
-    const { name, price, description, image } = menu;
+    const { id, name, price, description, image, quantity } = menu;
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const { addToCart } = useCart();
 
     const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+
+    const handleAddToCart = () => {
+        const cartItem = { menuId: id, name, price, description, image, quantity };
+        addToCart(cartItem);
+    };
+
+    const handleButtonClick = () => {
+        toggleDrawer();
+        handleAddToCart();
+    };
 
     return (
         <div className="w-full max-w-sm mx-auto lg:mx-0 lg:max-w-[300px]">
@@ -23,7 +35,7 @@ const MenuCard = ({ menu }) => {
                     <p>{description}</p>
                     <div className="card-actions flex-col">
                         <button
-                            onClick={toggleDrawer}
+                            onClick={handleButtonClick}
                             // className="btn bg-red-700 w-full text-white"
                             className='w-full'
                         >

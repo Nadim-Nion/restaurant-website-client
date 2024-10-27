@@ -1,6 +1,7 @@
 import React from 'react';
 import redChili from '../../../assets/red-chili.png';
 import { FaShoppingCart } from 'react-icons/fa';
+import useCart from '../../../hooks/useCart';
 
 const Header = () => {
     const navItems = <>
@@ -10,6 +11,8 @@ const Header = () => {
         <li><a>Gift Cards</a></li>
         <li><a>Login</a></li>
     </>;
+
+    const { cartItems } = useCart();
 
     return (
         <div className="navbar bg-base-100">
@@ -68,7 +71,10 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <FaShoppingCart className='text-3xl mr-4' />
+                <div className='indicator'>
+                    <FaShoppingCart className='text-3xl' />
+                    <span className="badge badge-primary mr-2">{cartItems.length}</span>
+                </div>
                 <button className="btn btn-outline bg-red-700 text-white">Order Now</button>
             </div>
         </div>
