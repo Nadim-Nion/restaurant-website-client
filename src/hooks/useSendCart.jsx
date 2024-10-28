@@ -9,7 +9,7 @@ const useSendCart = () => {
     const { data: carts = [], refetch } = useQuery({
         queryKey: ['carts'],
         queryFn: async () => {
-            const res = await axiosPublic.post('/cartItems');
+            const res = await axiosPublic.get('/cartItems');
             return res.data;
         }
     });
