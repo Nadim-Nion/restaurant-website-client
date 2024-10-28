@@ -1,12 +1,14 @@
 import React, { createContext, useState } from 'react';
 import useAxiosPublic from '../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
+import useSendCart from '../hooks/useSendCart';
 
 export const CartContext = createContext(null);
 
 const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
     const axiosPublic = useAxiosPublic();
+    const [, refetch] = useSendCart();
 
 
     const addToCart = async (item) => {
@@ -19,10 +21,12 @@ const CartProvider = ({ children }) => {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Your menu added to the cart",
+                title: 'Your menu added to the cart',
                 showConfirmButton: false,
                 timer: 1500
             });
+
+            refetch();
         }
     };
 
