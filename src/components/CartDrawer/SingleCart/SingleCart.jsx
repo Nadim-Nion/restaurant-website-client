@@ -2,6 +2,7 @@ import React from 'react';
 import { FiMinus, FiPlus } from 'react-icons/fi';
 import useSendCart from '../../../hooks/useSendCart';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import { FaTrashAlt } from 'react-icons/fa';
 
 const SingleCart = ({ item }) => {
     const { _id, name, price, image, quantity } = item;
@@ -29,7 +30,7 @@ const SingleCart = ({ item }) => {
 
 
     return (
-        <div className='border-2 border-white mb-2 flex justify-between m-4'>
+        <div className='border-2 border-white mb-2 flex justify-between m-4 relative'>
             <div className='flex justify-center items-center'>
                 {/* Image */}
                 <img src={image} alt="" className='w-[45px] h-[65px] m-2' />
@@ -53,6 +54,11 @@ const SingleCart = ({ item }) => {
             <div className='self-end pr-1 pb-2'>
                 <p className='font-semibold text-white'>$ {(price * quantity).toFixed(2)}</p>
             </div>
+
+            {/* Delete Icon */}
+            <button className='absolute top-[-8px] right-[-5px] p-1 text-red-600 bg-white'>
+                <FaTrashAlt />
+            </button>
         </div>
     );
 };
