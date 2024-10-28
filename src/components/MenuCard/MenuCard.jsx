@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
 import CartDrawer from '../CartDrawer/CartDrawer';
 import useCart from '../../hooks/useCart';
+import useSendCart from '../../hooks/useSendCart';
 
 const MenuCard = ({ menu }) => {
     const { id, name, price, description, image, quantity } = menu;
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const { addToCart } = useCart();
+    const [carts] = useSendCart();
 
     const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
+    // Check whether the item is already exist in the cart
+    const alreadyExist = carts.some(item => item.menuId === id);
+
     const handleAddToCart = () => {
-        const cartItem = { menuId: id, name, price, description, image, quantity };
-        addToCart(cartItem);
+        if (!alreadyExist) {
+            const cartItem = { menuId: id, name, price, description, image, quantity };
+            addToCart(cartItem);
+        }
     };
 
     const handleButtonClick = () => {
@@ -35,12 +42,15 @@ const MenuCard = ({ menu }) => {
                     <p>{description}</p>
                     <div className="card-actions flex-col">
                         <button
+                            disabled={alreadyExist}
                             onClick={handleButtonClick}
                             // className="btn bg-red-700 w-full text-white"
                             className='w-full'
                         >
                             {/* Add to Cart */}
-                            <label htmlFor="my-drawer-4" className="drawer-button btn bg-red-700 w-full text-white">Add to Cart</label>
+                            <label htmlFor="my-drawer-4" className="drawer-button btn bg-red-700 w-full text-white">
+                                {alreadyExist ? 'Already Exists' : ' Add to Cart'}
+                            </label>
 
                         </button>
                         <button className="btn btn-outline bg-red-500 w-full text-white border-0">Customize</button>
