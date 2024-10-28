@@ -48,7 +48,7 @@ const MenuCard = ({ menu }) => {
                             className='w-full'
                         >
                             {/* Add to Cart */}
-                            <label htmlFor="my-drawer-4" className="drawer-button btn bg-red-700 w-full text-white">
+                            <label htmlFor="my-drawer-4" className={`drawer-button btn ${alreadyExist ? 'bg-slate-700' : 'bg-red-700'} w-full text-white`}>
                                 {alreadyExist ? 'Already Exists' : ' Add to Cart'}
                             </label>
 

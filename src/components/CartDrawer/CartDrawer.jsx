@@ -1,6 +1,10 @@
 import React from 'react';
+import useSendCart from '../../hooks/useSendCart';
+import SingleCart from './SingleCart/SingleCart';
 
 const CartDrawer = () => {
+    const [carts] = useSendCart();
+
     return (
         <div className="drawer drawer-end">
 
@@ -14,17 +18,26 @@ const CartDrawer = () => {
                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
 
                 <div>
-                    <label
-                        htmlFor="my-drawer-4"
-                        aria-label="Close drawer"
-                        className="btn btn-sm btn-circle absolute right-4">
-                        X
-                    </label>
+                    <div className='flex justify-between items-center w-full p-4 bg-white'>
+                        <span>Total Items: {carts.length}</span>
+                        <label
+                            htmlFor="my-drawer-4"
+                            aria-label="Close drawer"
+                            className="btn btn-sm  absolute right-7">
+                            <span>Close</span>
+                        </label>
+                    </div>
 
-                    <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                    <ul className="menu bg-red-500 text-base-content min-h-full w-80 p-4">
                         {/* Sidebar content here */}
-                        <li><a>Sidebar Item 1</a></li>
-                        <li><a>Sidebar Item 2</a></li>
+                        <div>
+                            {
+                                carts.map(item => <SingleCart
+                                    key={item._id}
+                                    item={item}
+                                ></SingleCart>)
+                            }
+                        </div>
                     </ul>
                 </div>
 
