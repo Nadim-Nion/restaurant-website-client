@@ -3,6 +3,7 @@ import { FiMinus, FiPlus } from 'react-icons/fi';
 import useSendCart from '../../../hooks/useSendCart';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { FaTrashAlt } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const SingleCart = ({ item }) => {
     const { _id, name, price, image, quantity } = item;
@@ -26,6 +27,30 @@ const SingleCart = ({ item }) => {
         if (res.data.modifiedCount > 0) {
             refetch();
         }
+    };
+
+    const handleDelete = () => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosPublic.delete(`/cartItems/${_id}`);
+                if (res.data.deletedCount > 0) {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: `${name} has been deleted`,
+                        icon: "success"
+                    });
+                    refetch();
+                }
+            }
+        });
     };
 
 
@@ -56,7 +81,9 @@ const SingleCart = ({ item }) => {
             </div>
 
             {/* Delete Icon */}
-            <button className='absolute top-[-8px] right-[-5px] p-1 text-red-600 bg-white'>
+            <button
+                onClick={handleDelete}
+                className='absolute top-[-8px] right-[-5px] p-1 text-red-600 bg-white'>
                 <FaTrashAlt />
             </button>
         </div>
